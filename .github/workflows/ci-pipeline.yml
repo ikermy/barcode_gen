@@ -1,0 +1,34 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main, master, staging]
+
+jobs:
+  build-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'yarn'
+
+      - name: Install
+        run: yarn install --frozen-lockfile
+
+      - name: Prisma generate
+        run: yarn prisma generate
+
+      - name: Build
+        run: yarn build
+
+      - name: Test
+        run: yarn test
+
+      # lint не блокирует CI (по конвенции платформы auth/bff lint в CI не запускается).
+      - name: Lint (non-blocking)
+        run: yarn lint:ci
+        continue-on-error: true

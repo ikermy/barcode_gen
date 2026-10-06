@@ -1,0 +1,30 @@
+node_modules
+dist
+coverage
+.nyc_output
+*.tsbuildinfo
+
+# env files must never enter the image
+.env
+.env.*
+*.env
+
+# VCS / IDE / CI
+.git
+.gitignore
+.github
+.idea
+.vscode
+Dockerfile
+docker-compose*.yaml
+docker-compose*.yml
+
+# logs & local tmp
+*.log
+logs
+.tmp
+.temp
+
+# prisma generated client (regenerated during build)
+generated
+src/generated/prisma
